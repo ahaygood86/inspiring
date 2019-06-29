@@ -1,7 +1,7 @@
+import Home from '../components/Home';
+
 const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
+    <Home />
   );
   
   export default Index;
