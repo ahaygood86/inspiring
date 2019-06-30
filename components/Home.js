@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const ColorChoice = styled.div`
-
+    display: flex;
+    align-content: center;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1, 1.1);
+    }
 `;
 
 const ColorsBox = styled.div`
@@ -10,15 +15,18 @@ const ColorsBox = styled.div`
     flex-direction: row;
     width: 600px;
     justify-content: space-around;
+    margin-bottom: 10px;
 `;
 
 const Dropzone = styled.div`
     position: absolute;
-    left: 65px;
-    top: 210px;
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
+    width: 110px;
+    height: 110px;
+`;
+
+const DropImage = styled.div`
+    min-height: 110px;
+    margin-top: 10px;
 `;
 
 const HomeContent = styled.div`
@@ -40,7 +48,7 @@ const LogoImage = styled.img`
 `;
 
 const Reset = styled.button`
-    cursor: hand;
+    cursor: pointer;
 `;
 
 class Home extends Component {
@@ -85,31 +93,36 @@ class Home extends Component {
               name: "blue",
               expected: "blue",
               current: "",
-              position: ["300px", "70px"]
+              position: ["263px", "37px"],
+              src: "../static/ia-logo-dot-blue.png"
             },
             { 
               name: "red",
               expected: "red",
               current: "",
-              position: ["500px", "80px"]
+              position: ["444px", "61px"],
+              src: "../static/ia-logo-dot-red.png"
             },
             { 
               name: "green",
               expected: "green",
               current: "",
-              position: ["155px", "350px"]
+              position: ["131px", "325px"],
+              src: "../static/ia-logo-dot-green.png"
             },
             { 
               name: "black1",
               expected: "black",
               current: "",
-              position: ["65px", "210px"]
+              position: ["35px", "180px"],
+              src: "../static/ia-logo-dot-black.png"
             },
             { 
               name: "black2",
               expected: "black",
               current: "",
-              position: ["425px", "315px"]
+              position: ["408px", "277px"],
+              src: "../static/ia-logo-dot-black.png"
             }
         ]
         
@@ -151,6 +164,11 @@ class Home extends Component {
             inputs
         })
     }
+
+    onMouseOver = (e) => {
+        console.log("hover")
+        e.preventDefault()
+    }
     
     resetHandler = () => {
         const choices = this.state.choices.map(choice => {
@@ -176,7 +194,7 @@ class Home extends Component {
                         .map(choice => (
                             <ColorChoice key={choice.name}
                                 draggable
-                                onDragStart = {(e) => this.onDragStart(e, choice.name, choice.color)}
+                                onDragStart = {e => this.onDragStart(e, choice.name, choice.color)}
                             >
                                 <img src={choice.src}  />  
                             </ColorChoice>
@@ -189,8 +207,13 @@ class Home extends Component {
                             key={input.name}
                             onDragOver={(e)=>this.onDragOver(e)}
                             onDrop={(e)=>this.onDrop(e, input, "complete")}
-                            style={{background: input.current, left: input.position[0], top: input.position[1]}}
-                        />                    
+                            style={{left: input.position[0], top: input.position[1]}}
+                        >
+                            {input.current != "" ? 
+                            <DropImage>
+                                <img src={input.src} /> 
+                            </DropImage>  : ""}
+                        </Dropzone>                    
                     ))}
                     <LogoImage src="../static/ia-logo-back.png" />
                 </LogoBox>
