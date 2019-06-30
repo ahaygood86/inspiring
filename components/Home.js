@@ -104,22 +104,23 @@ class Home extends Component {
 
     }
 
-    onDrop = (e, input, cat) => {
+    onDrop = (e, zone, cat) => {
         //id = draggble item name
-      //  console.log(e.dataTransfer.getData("id"), input)
+      //  console.log(e.dataTransfer.getData("id"), zone)
         let id = e.dataTransfer.getData("id")
         let color = e.dataTransfer.getData("color")
         
-        let choices = this.state.choices.filter((choice, i) => {
+        let choices = this.state.choices.filter(choice => {
             //console.log("choice " + choice.name)
             console.log(choice)
-            if (color == input.expected
+            if (color == zone.expected
                 && id == choice.name
                 && id != "black1" 
                 && id != "black2"
+                && zone.current == ""
                 ) { 
                 choice.category = cat
-            } else if (color == input.expected && choice.name == id) {
+            } else if (color == zone.expected && id === choice.name && zone.current == "") {
                 choice.category = cat
             }  else {
 
@@ -127,11 +128,28 @@ class Home extends Component {
             }
             return choice
         })
-        console.log(input)
+
+        let inputs = this.state.inputs.filter(input => {
+            if (color == input.expected
+                && id == zone.name
+                && id != "black1" 
+                && id != "black2"
+                && input.current == ""
+                ) { 
+                console.log('yes')
+                input.current = color
+            } else if (color == input.expected && zone.name == input.name && zone.current == "") {
+                input.current = color
+            } 
+            return input
+        })
+
+       // console.log(input)
     //    console.log(choices)
 
         this.setState({
-            choices
+            choices,
+            inputs
         })
     }
     
@@ -161,7 +179,8 @@ class Home extends Component {
                         <Dropzone
                             key={input.name}
                             onDragOver={(e)=>this.onDragOver(e)}
-                            onDrop={(e)=>this.onDrop(e, input, "complete")} 
+                            onDrop={(e)=>this.onDrop(e, input, "complete")}
+                            style={{background: input.current}}
                         />                    
                     ))}
                 </div>
@@ -171,5 +190,7 @@ class Home extends Component {
         );
     }
 }
+
+
 
 export default Home;
