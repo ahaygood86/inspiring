@@ -98,54 +98,31 @@ class Home extends Component {
     }
 
     onDragStart = (e, id, color) => {
-       // console.log('onDragStart id:', id);
         e.dataTransfer.setData("id", id);
         e.dataTransfer.setData("color", color);
-
     }
 
     onDrop = (e, zone, cat) => {
-        //id = draggble item name
-      //  console.log(e.dataTransfer.getData("id"), zone)
         let id = e.dataTransfer.getData("id")
         let color = e.dataTransfer.getData("color")
         
         let choices = this.state.choices.filter(choice => {
-            //console.log("choice " + choice.name)
-            console.log(choice)
-            if (color == zone.expected
-                && id == choice.name
-                && id != "black1" 
-                && id != "black2"
-                && zone.current == ""
-                ) { 
+            if (color == zone.expected 
+                && id === choice.name 
+                && zone.current == "") {
                 choice.category = cat
-            } else if (color == zone.expected && id === choice.name && zone.current == "") {
-                choice.category = cat
-            }  else {
-
-                choice.category = choice.category
-            }
+            } 
             return choice
         })
 
         let inputs = this.state.inputs.filter(input => {
-            if (color == input.expected
-                && id == zone.name
-                && id != "black1" 
-                && id != "black2"
-                && input.current == ""
-                ) { 
-                console.log('yes')
-                input.current = color
-            } else if (color == input.expected && zone.name == input.name && zone.current == "") {
+            if (color == zone.expected 
+                && zone.name == input.name 
+                && zone.current == "") {
                 input.current = color
             } 
             return input
         })
-
-       // console.log(input)
-    //    console.log(choices)
 
         this.setState({
             choices,
@@ -155,10 +132,6 @@ class Home extends Component {
     
     
     render() {
-        
-       // console.log(this.state.inputs)
-   // console.log(this.state.choices)
-
         return (
             <HomeContent>
                 I am the home component
@@ -184,13 +157,9 @@ class Home extends Component {
                         />                    
                     ))}
                 </div>
-
-
             </HomeContent>
         );
     }
 }
-
-
 
 export default Home;
