@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Meta from './Meta';
+import firebase from 'firebase/app';
 
 const theme = {
   backgroundColorMain: 'linear-gradient(to bottom right, #3A3A3A, #FFFFFF)',
@@ -56,6 +57,19 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 class Page extends Component {
+
+  componentDidMount() {
+    const firebaseConfig = {
+      apiKey: "AIzaSyDTIlgrsDk6uds_Z12bh-CuzPIN3wHhuww",
+      authDomain: "inspiring-apps-demo.firebaseapp.com",
+      databaseURL: "https://inspiring-apps-demo.firebaseio.com",
+      projectId: "inspiring-apps-demo",
+      storageBucket: "",
+      messagingSenderId: "895414219804",
+      appId: "1:895414219804:web:7c52f64f797001cb"
+    };
+    firebase.initializeApp(firebaseConfig);
+  }
 
     render() {
         return (

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
 const ColorChoice = styled.div`
     display: flex;
@@ -9,20 +9,20 @@ const ColorChoice = styled.div`
     &:hover {
         transform: scale(1.1);
     }
-`;
+`
 
 const ColorsBox = styled.div`
     display: flex;
     flex-direction: row;
     width: 600px;
     justify-content: space-around;
-`;
+`
 
 const Dropzone = styled.div`
     position: absolute;
     width: 110px;
     height: 110px;
-`;
+`
 
 const DropImage = styled.div`
     min-height: 110px;
@@ -35,7 +35,7 @@ const DropImage = styled.div`
         transform: scale(1.1);
         visibility: hidden;
     }
-`;
+`
 
 const HomeContent = styled.div`
     font-size: 2em;
@@ -45,16 +45,16 @@ const HomeContent = styled.div`
     align-items: center;
     margin: 0;
     text-align: center;
-`;
+`
 
 const LogoBox = styled.div`
     position: relative;
     width: 600px;
     margin-top: 10px;
-`;
+`
 
 const LogoImage = styled.img`
-`;
+`
 
 const ThanksNotice = styled.div`
     transition: 1s;
@@ -67,11 +67,11 @@ const ThanksNotice = styled.div`
         font-size: 0px;
         visibility: collapse;
     }
-`;
+`
 
 const Reset = styled.button`
     cursor: pointer;
-`;
+`
 
 class Home extends Component {
     
@@ -151,12 +151,12 @@ class Home extends Component {
     }
 
     onDragOver = (e) => {
-        e.preventDefault();
+        e.preventDefault()
     }
 
     onDragStart = (e, id, color) => {
-        e.dataTransfer.setData("id", id);
-        e.dataTransfer.setData("color", color);
+        e.dataTransfer.setData("id", id)
+        e.dataTransfer.setData("color", color)
     }
 
     onDrop = (e, zone, cat) => {        
@@ -242,8 +242,8 @@ class Home extends Component {
                     Reset Me
                 </Reset>
             </HomeContent>
-        );
+        )
     }
 }
 
-export default Home;
+export default Home
