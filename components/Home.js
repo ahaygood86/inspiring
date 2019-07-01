@@ -16,7 +16,6 @@ const ColorsBox = styled.div`
     flex-direction: row;
     width: 600px;
     justify-content: space-around;
-    margin: 10px 0 10px 0;
 `;
 
 const Dropzone = styled.div`
@@ -51,6 +50,7 @@ const HomeContent = styled.div`
 const LogoBox = styled.div`
     position: relative;
     width: 600px;
+    margin-top: 10px;
 `;
 
 const LogoImage = styled.img`
@@ -59,10 +59,13 @@ const LogoImage = styled.img`
 const ThanksNotice = styled.div`
     transition: 1s;
     &.active {
-        display: flex;
+        visibility: visible;
+        font-size: 43px;
+        min-height: 86px;
     }
     &.inactive {
-        display: none;
+        font-size: 0px;
+        visibility: collapse;
     }
 `;
 
@@ -215,6 +218,9 @@ class Home extends Component {
                         )
                     )}
                 </ColorsBox>
+                <ThanksNotice className={this.state.inputs.filter(input => input.current != '').length == 5 ? "active" : "inactive"}>
+                    Great job!
+                </ThanksNotice>
                 <LogoBox>                  
                     {this.state.inputs.map(input => (
                         <Dropzone
@@ -230,9 +236,6 @@ class Home extends Component {
                     ))}
                     <LogoImage src="../static/ia-logo-back.png" />
                 </LogoBox>
-                <ThanksNotice className={this.state.inputs.filter(input => input.current != '').length == 5 ? "active" : "inactive"}>
-                    Great job!
-                </ThanksNotice>
                 <Reset 
                     onClick={()=>this.resetHandler()}
                 >
