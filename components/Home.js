@@ -5,8 +5,9 @@ const ColorChoice = styled.div`
     display: flex;
     align-content: center;
     cursor: pointer;
+    transition: 100ms;
     &:hover {
-        transform: scale(1.1, 1.1);
+        transform: scale(1.1);
     }
 `;
 
@@ -15,7 +16,7 @@ const ColorsBox = styled.div`
     flex-direction: row;
     width: 600px;
     justify-content: space-around;
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
 `;
 
 const Dropzone = styled.div`
@@ -27,24 +28,42 @@ const Dropzone = styled.div`
 const DropImage = styled.div`
     min-height: 110px;
     margin-top: 10px;
+    transition: .1s;
+    &.active {
+        transform: scale(1);
+    }
+    &.inactive {
+        transform: scale(1.1);
+        visibility: hidden;
+    }
 `;
 
 const HomeContent = styled.div`
+    font-size: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin: 0;
     text-align: center;
 `;
 
 const LogoBox = styled.div`
-    border: 1px solid black;
     position: relative;
     width: 600px;
 `;
 
 const LogoImage = styled.img`
-    
+`;
+
+const ThanksNotice = styled.div`
+    transition: 1s;
+    &.active {
+        display: flex;
+    }
+    &.inactive {
+        display: none;
+    }
 `;
 
 const Reset = styled.button`
@@ -164,11 +183,6 @@ class Home extends Component {
             inputs
         })
     }
-
-    onMouseOver = (e) => {
-        console.log("hover")
-        e.preventDefault()
-    }
     
     resetHandler = () => {
         const choices = this.state.choices.map(choice => {
@@ -188,7 +202,7 @@ class Home extends Component {
     render() {
         return (
             <HomeContent>
-                I am the home component
+                Please help us complete our logo by dragging the colors to the appropriate location!
                 <ColorsBox>
                     {this.state.choices.filter(choice => choice.category == "unset")
                         .map(choice => (
@@ -208,15 +222,17 @@ class Home extends Component {
                             onDragOver={(e)=>this.onDragOver(e)}
                             onDrop={(e)=>this.onDrop(e, input, "complete")}
                             style={{left: input.position[0], top: input.position[1]}}
-                        >
-                            {input.current != "" ? 
-                            <DropImage>
+                        >                   
+                            <DropImage className={input.current != "" ? "active" : "inactive"}>
                                 <img src={input.src} /> 
-                            </DropImage>  : ""}
+                            </DropImage>
                         </Dropzone>                    
                     ))}
                     <LogoImage src="../static/ia-logo-back.png" />
                 </LogoBox>
+                <ThanksNotice className={this.state.inputs.filter(input => input.current != '').length == 5 ? "active" : "inactive"}>
+                    Great job!
+                </ThanksNotice>
                 <Reset 
                     onClick={()=>this.resetHandler()}
                 >
